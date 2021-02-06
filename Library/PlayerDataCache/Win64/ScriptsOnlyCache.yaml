@@ -75,61 +75,61 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1580}
-    - Class: 114
       Script: {instanceID: 1582}
     - Class: 114
       Script: {instanceID: 1584}
     - Class: 114
-      Script: {instanceID: 1622}
+      Script: {instanceID: 1586}
     - Class: 114
-      Script: {instanceID: 1648}
+      Script: {instanceID: 1624}
     - Class: 114
-      Script: {instanceID: 1652}
+      Script: {instanceID: 1650}
     - Class: 114
-      Script: {instanceID: 2118}
+      Script: {instanceID: 1654}
     - Class: 114
-      Script: {instanceID: 2272}
+      Script: {instanceID: 2120}
     - Class: 114
-      Script: {instanceID: 2302}
+      Script: {instanceID: 2274}
     - Class: 114
-      Script: {instanceID: 2724}
+      Script: {instanceID: 2304}
     - Class: 114
-      Script: {instanceID: 2790}
+      Script: {instanceID: 2726}
     - Class: 114
-      Script: {instanceID: 2898}
+      Script: {instanceID: 2792}
     - Class: 114
-      Script: {instanceID: 2980}
+      Script: {instanceID: 2900}
     - Class: 114
-      Script: {instanceID: 3516}
+      Script: {instanceID: 2982}
     - Class: 114
-      Script: {instanceID: 3568}
+      Script: {instanceID: 3518}
     - Class: 114
-      Script: {instanceID: 3746}
+      Script: {instanceID: 3570}
     - Class: 114
-      Script: {instanceID: 3798}
+      Script: {instanceID: 3748}
     - Class: 114
-      Script: {instanceID: 3856}
+      Script: {instanceID: 3800}
     - Class: 114
-      Script: {instanceID: 3904}
+      Script: {instanceID: 3858}
     - Class: 114
-      Script: {instanceID: 4304}
+      Script: {instanceID: 3906}
     - Class: 114
-      Script: {instanceID: 4318}
+      Script: {instanceID: 4142}
     - Class: 114
-      Script: {instanceID: 4370}
+      Script: {instanceID: 4308}
     - Class: 114
-      Script: {instanceID: 4560}
+      Script: {instanceID: 4322}
     - Class: 114
-      Script: {instanceID: 4696}
+      Script: {instanceID: 4374}
     - Class: 114
-      Script: {instanceID: 5036}
+      Script: {instanceID: 4564}
     - Class: 114
-      Script: {instanceID: 5060}
+      Script: {instanceID: 4700}
     - Class: 114
-      Script: {instanceID: 5578}
+      Script: {instanceID: 5040}
     - Class: 114
-      Script: {instanceID: 31058}
+      Script: {instanceID: 5064}
+    - Class: 114
+      Script: {instanceID: 5582}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -591,7 +591,7 @@ ScriptsOnlyBuild:
     className: PlayerInputEditor
   - hash:
       serializedVersion: 2
-      Hash: 966d8e8df400bb29a6e47682641967f4
+      Hash: e48c348cb964c1ca25b74c4434f2532f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager
@@ -739,6 +739,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: PositionAsUV1
+  - hash:
+      serializedVersion: 2
+      Hash: 9723b5ee34969d2f700a0b89141baa56
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundtrackManager
   - hash:
       serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
@@ -1135,12 +1141,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.ML-Agents.dll
     namespaceName: Unity.MLAgents.Demonstrations
     className: DemonstrationSummary
-  - hash:
-      serializedVersion: 2
-      Hash: 9723b5ee34969d2f700a0b89141baa56
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SoundtrackManager
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

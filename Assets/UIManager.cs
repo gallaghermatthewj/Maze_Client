@@ -59,8 +59,8 @@ public class UIManager : MonoBehaviour
 
         System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(appPath, args);
 
-        psi.UseShellExecute = false;
-        psi.CreateNoWindow = true;
+        //psi.UseShellExecute = false;
+        //psi.CreateNoWindow = true;
         System.Diagnostics.Process.Start(psi);
         waitASec(3f);
         
