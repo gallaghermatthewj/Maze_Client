@@ -7,6 +7,12 @@ public class MouseMovement : MonoBehaviour
     float lockPos = 0;
     public bool isLocalPlayer;
     public Quaternion currentOrientation;
+
+    public bool[] switchSetting;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +36,22 @@ public class MouseMovement : MonoBehaviour
         
         transform.rotation = Quaternion.Euler(lockPos, lockPos, transform.rotation.eulerAngles.z);
         //transform.Rotate(Vector3.left, 1.5708f, Space.World);
-        transform.RotateAroundLocal(Vector3.left, 1.5708f);
+        if (switchSetting[0]) { transform.RotateAroundLocal(Vector3.left, 1.5708f); }
+        if (switchSetting[1]) { transform.RotateAroundLocal(Vector3.forward, 1.5708f); }
+        if (switchSetting[2]) { transform.RotateAroundLocal(Vector3.right, 1.5708f); }
+        if (switchSetting[3]) { transform.RotateAroundLocal(Vector3.back, 1.5708f); }
+        if (switchSetting[4]) { transform.RotateAroundLocal(Vector3.up, 1.5708f); }
+        if (switchSetting[5]) { transform.RotateAroundLocal(Vector3.down, 1.5708f); }
+
 
         if (!isLocalPlayer)
         {
             //transform.parent.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
             currentOrientation = transform.rotation;
+        }
+        else
+        {
+            //transform.SetPositionAndRotation(transform.position, Quaternion.EulerAngles(0, 0, transform.rotation.eulerAngles.z));
         }
         //transform.rotation = Quaternion.AngleAxis(1.5708f, Vector3.right);
     }

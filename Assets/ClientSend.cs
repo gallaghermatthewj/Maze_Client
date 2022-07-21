@@ -19,6 +19,7 @@ public class ClientSend : MonoBehaviour
     #region Packets
     public static void WelcomeReceived()
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
             _packet.Write(Client.instance.myId);
@@ -30,16 +31,19 @@ public class ClientSend : MonoBehaviour
 
     public static void PlayerMovement(Vector2 _inputVector)
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
             _packet.Write(_inputVector);
 
-            SendUDPData(_packet);
+            //SendUDPData(_packet);
+            SendTCPData(_packet);
         }
     }
 
     public static void LegacyPlayerMovement(bool[] _inputs)
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
             _packet.Write(_inputs.Length);
@@ -49,12 +53,14 @@ public class ClientSend : MonoBehaviour
             }
             _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
 
-            SendUDPData(_packet);
+            //SendUDPData(_packet);
+            SendTCPData(_packet);
         }
     }
 
     public static void PlayerShoot(Vector3 _facing)
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         using (Packet _packet = new Packet((int)ClientPackets.playerShoot))
         {
             _packet.Write(_facing);
@@ -62,11 +68,12 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void TriggerMazeRedraw()
+    public static void TriggerMazeRedraw(int _mechanismIndex)
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
         using (Packet _packet = new Packet((int)ClientPackets.triggerMazeRedraw))
         {
-            _packet.Write(true);
+            _packet.Write(_mechanismIndex);
             SendTCPData(_packet);
         }
     }

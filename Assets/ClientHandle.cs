@@ -14,10 +14,12 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId = _myId;
         ClientSend.WelcomeReceived();
+        Debug.Log($"Beginning Delayed UDP Connection {System.DateTime.Now}");
+        //Client.instance.Invoke("delayUDPStart", 5.0f);
 
-
-        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+        //Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
+    
 
     public static void SpawnPlayer(Packet _packet)
     {
@@ -75,7 +77,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         float _health = _packet.ReadFloat();
-
+        
         GameManager.players[_id].SetHealth(_health);
     }
 
@@ -148,6 +150,17 @@ public class ClientHandle : MonoBehaviour
         Vector3 newPosition = _packet.ReadVector3();
         GameManager.itemSpawners[_spawnerId].basePosition = newPosition;
         GameManager.itemSpawners[_spawnerId].transform.position = newPosition;
+    }
+    public static void MazeElectrified(Packet _packet)
+    {
+        //Lucky Player should be insulated
+        Debug.Log($"Maze Electrified");
+        int _byPlayer = _packet.ReadInt();
+        GameManager.players[_byPlayer].gainTemporaryInsulation();
+        //Now render maze as electrified
+
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        camera.GetComponent<CameraBehaviorManager>().electrify();
     }
     
 }

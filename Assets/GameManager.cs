@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public static int Width;
     public static int Depth;
-    
+    public bool isInsulated;
 
     private void Awake()
     {
@@ -77,4 +77,7 @@ public class GameManager : MonoBehaviour
         _spawner.GetComponent<ItemSpawner>().Initialize(_spawnerId, _hasItem, _itemType);
         itemSpawners.Add(_spawnerId, _spawner.GetComponent<ItemSpawner>());
     }
+    
+
+
 }

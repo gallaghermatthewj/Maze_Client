@@ -21,7 +21,8 @@ public enum ServerPackets
     createItemSpawner,
     itemSpawned,
     itemPickedUp,
-    moveItemSpawner
+    moveItemSpawner,
+    mazeElectrified
 }
 
 /// <summary>Sent from client to server.</summary>

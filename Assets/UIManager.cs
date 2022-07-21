@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-    
+    public AudioSource menuAudioSource;
+    public AudioClip startGameClip;
     public GameObject startMenu;
     public GameObject createRoomMenu;
     public GameObject joinRoomMenu;
@@ -38,6 +39,8 @@ public class UIManager : MonoBehaviour
 
     public void CreateNewServer()
     {
+        menuAudioSource.clip = startGameClip;
+        menuAudioSource.Play();
         userName = CRusernameField.text;
         startMenu.SetActive(false);
         createRoomMenu.SetActive(false);
@@ -70,6 +73,8 @@ public class UIManager : MonoBehaviour
     
     public void ConnectToExistingServer()
     {
+        menuAudioSource.clip = startGameClip;
+        menuAudioSource.Play();
         userName = JRusernameField.text;
         
         startMenu.SetActive(false);
@@ -89,6 +94,7 @@ public class UIManager : MonoBehaviour
     {
         try
         {
+            menuAudioSource.Play();
             createRoomMenu.SetActive(false);
             joinRoomMenu.SetActive(false);
             startMenu.SetActive(true);
@@ -110,6 +116,7 @@ public class UIManager : MonoBehaviour
     {
         try
         {
+            menuAudioSource.Play();
             startMenu.SetActive(false);
             joinRoomMenu.SetActive(false);
             createRoomMenu.SetActive(true);
@@ -132,6 +139,7 @@ public class UIManager : MonoBehaviour
     {
         try
         {
+            menuAudioSource.Play();
             startMenu.SetActive(false);
             createRoomMenu.SetActive(false);
             joinRoomMenu.SetActive(true);
@@ -160,7 +168,10 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(secondsToWait);
     }
+    public static void waitForNothing()
+    {
 
+    }
     public void QuitGame()
     {
         Application.Quit();

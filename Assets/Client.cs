@@ -39,8 +39,16 @@ public class Client : MonoBehaviour
         udp = new UDP();
     }
 
+    public void delayUDPStart()
+    {
+        instance.udp.Connect(((IPEndPoint)instance.tcp.socket.Client.LocalEndPoint).Port);
+    }
+
+
     private void OnApplicationQuit()
     {
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+        Debug.Log("DISCONNECTING - APPLICATION CLOSURE");
         Disconnect(); // Disconnect when the game is closed
     }
 
@@ -132,21 +140,30 @@ public class Client : MonoBehaviour
         {
             try
             {
-                int _byteLength = stream.EndRead(_result);
-                if (_byteLength <= 0)
+                if (stream != null)
                 {
-                    instance.Disconnect();
-                    return;
+                    int _byteLength = stream.EndRead(_result);
+                    if (_byteLength <= 0)
+                    {
+                        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+                        Debug.Log("DISCONNECTING - TCP EMPTY PACKET");
+                        instance.Disconnect();
+                        return;
+                    }
+
+                    byte[] _data = new byte[_byteLength];
+                    Array.Copy(receiveBuffer, _data, _byteLength);
+
+                    receivedData.Reset(HandleData(_data)); // Reset receivedData if all data was handled
+                
+                    stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
                 }
-
-                byte[] _data = new byte[_byteLength];
-                Array.Copy(receiveBuffer, _data, _byteLength);
-
-                receivedData.Reset(HandleData(_data)); // Reset receivedData if all data was handled
-                stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
             }
-            catch
+            catch(Exception _ex)
             {
+                Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+                Debug.Log("DISCONNECTING - TCP ERROR");
+                Debug.Log(_ex);
                 Disconnect();
             }
         }
@@ -207,6 +224,8 @@ public class Client : MonoBehaviour
         /// <summary>Disconnects from the server and cleans up the TCP connection.</summary>
         private void Disconnect()
         {
+            Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+            Debug.Log("DISCONNECTING TCP");
             instance.Disconnect();
 
             stream = null;
@@ -230,6 +249,7 @@ public class Client : MonoBehaviour
         /// <param name="_localPort">The port number to bind the UDP socket to.</param>
         public void Connect(int _localPort)
         {
+            Debug.Log($"Connecting UDP Now...{System.DateTime.Now}");
             socket = new UdpClient(_localPort);
 
             socket.Connect(endPoint);
@@ -264,19 +284,30 @@ public class Client : MonoBehaviour
         {
             try
             {
-                byte[] _data = socket.EndReceive(_result, ref endPoint);
-                socket.BeginReceive(ReceiveCallback, null);
-
-                if (_data.Length < 4)
+                if (socket != null)
                 {
-                    instance.Disconnect();
-                    return;
-                }
+                    byte[] _data = socket.EndReceive(_result, ref endPoint);
+                
+                    socket.BeginReceive(ReceiveCallback, null);
 
-                HandleData(_data);
+                    if (_data.Length < 4)
+                    {
+                        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+                        Debug.Log("DISCONNECTING - UDP EMPTY PACKET");
+
+                        instance.Disconnect();
+                        return;
+                    }
+
+                    HandleData(_data);
+                }
+                
             }
-            catch
+            catch (Exception _ex)
             {
+                Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+                Debug.Log("DISCONNECTING - UDP ERROR");
+                Debug.Log(_ex);
                 Disconnect();
             }
         }
@@ -304,6 +335,8 @@ public class Client : MonoBehaviour
         /// <summary>Disconnects from the server and cleans up the UDP connection.</summary>
         private void Disconnect()
         {
+            Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+            Debug.Log("DISCONNECTING UDP");
             instance.Disconnect();
 
             endPoint = null;
@@ -330,7 +363,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.createItemSpawner, ClientHandle.CreateItemSpawner },
             { (int)ServerPackets.itemSpawned, ClientHandle.ItemSpawned },
             { (int)ServerPackets.itemPickedUp, ClientHandle.ItemPickedUp },
-            { (int)ServerPackets.moveItemSpawner, ClientHandle.moveItemSpawner }
+            { (int)ServerPackets.moveItemSpawner, ClientHandle.moveItemSpawner },
+            { (int)ServerPackets.mazeElectrified, ClientHandle.MazeElectrified }
+            
         };
         Debug.Log("Initialized packets.");
     }
@@ -342,8 +377,9 @@ public class Client : MonoBehaviour
         {
             isConnected = false;
             tcp.socket.Close();
-            udp.socket.Close();
-
+            if (udp != null) { if (udp.socket != null) { udp.socket.Close(); } }
+            Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+            Debug.Log("DISCONNECTING CLIENT");
             Debug.Log("Disconnected from server.");
         }
     }

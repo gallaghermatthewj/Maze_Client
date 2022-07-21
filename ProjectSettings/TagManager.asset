@@ -8,6 +8,7 @@ TagManager:
   - UI_Element
   - BigRedButton
   - OtherPlayer
+  - ElectrifiedWalls
   layers:
   - Default
   - TransparentFX

@@ -268,7 +268,7 @@ public class CreateMaze : MonoBehaviour
     {
         int buttonX = Random.Range(0, Width);
         int buttonY = Random.Range(0, Depth);
-        GameObject pillInstance = Instantiate(buttonObject, new Vector3(buttonX * 5, 2, buttonY * 5), Quaternion.identity);
+        GameObject pillInstance = Instantiate(buttonObject, new Vector3(buttonX * 5, 1, buttonY * 5), Quaternion.identity);
     }
 
     public void refreshWalls()
